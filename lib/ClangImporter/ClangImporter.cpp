@@ -1072,6 +1072,7 @@ ClangImporter::create(ASTContext &ctx,
       overlayFileSystem->pushOverlay(importerOpts.InMemoryOutputFileSystem);
       clangFileSystem = overlayFileSystem;
     }
+    /*
     if (!ctx.SearchPathOpts.VFSOverlayFiles.empty() ||
         importerOpts.ForceUseSwiftVirtualFileSystem ||
         importerOpts.InMemoryOutputFileSystem) {
@@ -1079,12 +1080,13 @@ ClangImporter::create(ASTContext &ctx,
       // -ivfsoverlay options.  We're going to clobber their file system with
       // the Swift file system, so warn about it.
       if (!instance.getHeaderSearchOpts().VFSOverlayFiles.empty()) {
-        ctx.Diags.diagnose(SourceLoc(), diag::clang_vfs_overlay_is_ignored);
+        // ctx.Diags.diagnose(SourceLoc(), diag::clang_vfs_overlay_is_ignored);
       }
       // SWIFT_ENABLE_TENSORFLOW
-      instance.setVirtualFileSystem(clangFileSystem);
+      // instance.setVirtualFileSystem(clangFileSystem);
     }
     instance.createFileManager();
+    */
   }
 
   // Don't stop emitting messages if we ever can't load a module.

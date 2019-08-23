@@ -489,6 +489,35 @@
                 "indexstore-db": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
                 "sourcekit-lsp": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a"
             }
+        },
+        "tensorflow-next": {
+            "aliases": ["tensorflow-next"],
+            "repos": {
+                "llvm": "396b777ac950b958c5751eec2ff302767982f2e5",
+                "clang": "1df9dd1839a8a19f591f58e03abff9df25d71c93",
+                "compiler-rt": "c43f67aa61a13db932d7cc1fc5b3f70cd7b41d58",
+                "swift": "tensorflow-next",
+                "lldb": "upstream-with-swift",
+                "cmark": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "llbuild": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "swiftpm": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "swift-syntax": "1c2feb708bbf0586ece4c2139c1e9faf8381e89a",
+                "swift-stress-tester": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "swift-corelibs-xctest": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "swift-corelibs-foundation": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "swift-corelibs-libdispatch": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "swift-integration-tests": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "swift-xcode-playground-support": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "cmake": "v3.15.0",
+                "ninja": "release",
+                "icu": "release-61-1",
+                "clang-tools-extra": "d9d027ac7f883874c917760dca639d39ef129da2",
+                "libcxx": "upstream-with-swift",
+                "tensorflow": "c6719f20911f8aa6b6d9cded1c0f7761cb9c69a0",
+                "tensorflow-swift-apis": "3629ddc49b706df89f89fa3e92e495e6e3f42332",
+                "indexstore-db": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a",
+                "sourcekit-lsp": "swift-DEVELOPMENT-SNAPSHOT-2019-08-12-a"
+            }
         }
     }
 }

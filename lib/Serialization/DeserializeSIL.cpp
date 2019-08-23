@@ -670,11 +670,18 @@ SILDeserializer::readSILFunctionChecked(DeclID FID, SILFunction *existingFn,
   // SWIFT_ENABLE_TENSORFLOW
   // Read and instantiate the differentiable attributes.
   while (numDifferentiableAttrs--) {
-    auto next = SILCursor.advance(AF_DontPopBlockAtEnd);
+    llvm::Expected<llvm::BitstreamEntry> maybeNext =
+        SILCursor.advance(AF_DontPopBlockAtEnd);
+    if (!maybeNext)
+      return maybeNext.takeError();
+    llvm::BitstreamEntry next = maybeNext.get();
     assert(next.Kind == llvm::BitstreamEntry::Record);
 
     scratch.clear();
-    kind = SILCursor.readRecord(next.ID, scratch);
+    llvm::Expected<unsigned> maybeKind = SILCursor.readRecord(next.ID, scratch);
+    if (!maybeKind)
+      return maybeKind.takeError();
+    unsigned kind = maybeKind.get();
     assert(kind == SIL_DIFFERENTIABLE_ATTR &&
            "Missing differentiable attribute");
 
