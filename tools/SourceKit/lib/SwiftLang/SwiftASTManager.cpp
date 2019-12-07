@@ -371,13 +371,11 @@ struct CacheKeyHashInfo<ASTKey> {
 struct SwiftASTManager::Implementation {
   explicit Implementation(
       std::shared_ptr<SwiftEditorDocumentFileMap> EditorDocs,
-      std::shared_ptr<GlobalConfig> Config,
       std::shared_ptr<SwiftStatistics> Stats, StringRef RuntimeResourcePath)
-      : EditorDocs(EditorDocs), Config(Config), Stats(Stats),
+      : EditorDocs(EditorDocs), Stats(Stats),
         RuntimeResourcePath(RuntimeResourcePath) {}
 
   std::shared_ptr<SwiftEditorDocumentFileMap> EditorDocs;
-  std::shared_ptr<GlobalConfig> Config;
   std::shared_ptr<SwiftStatistics> Stats;
   std::string RuntimeResourcePath;
   SourceManager SourceMgr;
@@ -403,10 +401,8 @@ struct SwiftASTManager::Implementation {
 
 SwiftASTManager::SwiftASTManager(
     std::shared_ptr<SwiftEditorDocumentFileMap> EditorDocs,
-    std::shared_ptr<GlobalConfig> Config,
     std::shared_ptr<SwiftStatistics> Stats, StringRef RuntimeResourcePath)
-    : Impl(*new Implementation(EditorDocs, Config, Stats,
-                               RuntimeResourcePath)) {}
+    : Impl(*new Implementation(EditorDocs, Stats, RuntimeResourcePath)) {}
 
 SwiftASTManager::~SwiftASTManager() {
   delete &Impl;
@@ -538,15 +534,6 @@ bool SwiftASTManager::initCompilerInvocation(
 
   // We don't care about LLVMArgs
   FrontendOpts.LLVMArgs.clear();
-
-  // SwiftSourceInfo files provide source location information for decls coming
-  // from loaded modules. For most IDE use cases it either has an undesirable
-  // impact on performance with no benefit (code completion), results in stale
-  // locations being used instead of more up-to-date indexer locations (cursor
-  // info), or has no observable effect (diagnostics, which are filtered to just
-  // those with a location in the primary file, and everything else).
-  if (Impl.Config->shouldOptimizeForIDE())
-    FrontendOpts.IgnoreSwiftSourceInfo = true;
 
   // Disable expensive SIL options to reduce time spent in SILGen.
   disableExpensiveSILOptions(Invocation.getSILOptions());

@@ -16,7 +16,6 @@
 #include "SourceKit/Core/LLVM.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/STLExtras.h"
-#include "llvm/Support/Mutex.h"
 #include <memory>
 #include <string>
 
@@ -28,30 +27,10 @@ namespace SourceKit {
   class LangSupport;
   class NotificationCenter;
 
-class GlobalConfig {
-public:
-  struct Settings {
-    /// When true, the default compiler options and other configuration flags will be chosen to optimize for
-    /// usage from an IDE.
-    ///
-    /// At the time of writing this just means ignoring .swiftsourceinfo files.
-    bool OptimizeForIDE = false;
-  };
-
-private:
-  Settings State;
-  mutable llvm::sys::Mutex Mtx;
-
-public:
-  Settings update(Optional<bool> OptimizeForIDE);
-  bool shouldOptimizeForIDE() const;
-};
-
 class Context {
   std::string RuntimeLibPath;
   std::unique_ptr<LangSupport> SwiftLang;
   std::shared_ptr<NotificationCenter> NotificationCtr;
-  std::shared_ptr<GlobalConfig> Config;
 
 public:
   Context(StringRef RuntimeLibPath,
@@ -65,8 +44,6 @@ public:
   LangSupport &getSwiftLangSupport() { return *SwiftLang; }
 
   std::shared_ptr<NotificationCenter> getNotificationCenter() { return NotificationCtr; }
-
-  std::shared_ptr<GlobalConfig> getGlobalConfiguration() { return Config; }
 };
 
 } // namespace SourceKit

@@ -263,9 +263,8 @@ SwiftLangSupport::SwiftLangSupport(SourceKit::Context &SKCtx)
 
   Stats = std::make_shared<SwiftStatistics>();
   EditorDocuments = std::make_shared<SwiftEditorDocumentFileMap>();
-  ASTMgr = std::make_shared<SwiftASTManager>(EditorDocuments,
-                                             SKCtx.getGlobalConfiguration(),
-                                             Stats, RuntimeResourcePath);
+  ASTMgr = std::make_shared<SwiftASTManager>(EditorDocuments, Stats,
+                                             RuntimeResourcePath);
   // By default, just use the in-memory cache.
   CCCache->inMemory = llvm::make_unique<ide::CodeCompletionCache>();
 

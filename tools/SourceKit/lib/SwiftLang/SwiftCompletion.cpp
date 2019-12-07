@@ -172,8 +172,8 @@ static bool swiftCodeCompleteImpl(
     return false;
   }
 
-  // Always disable source location resolutions from .swiftsourceinfo file
-  // because they're somewhat heavy operations and aren't needed for completion.
+  // Disable source location resolutions from .swiftsourceinfo file because
+  // they are somewhat heavy operations and are not needed for completions.
   Invocation.getFrontendOptions().IgnoreSwiftSourceInfo = true;
 
   const char *Position = InputFile->getBufferStart() + CodeCompletionOffset;
