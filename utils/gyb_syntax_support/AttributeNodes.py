@@ -212,8 +212,6 @@ ATTRIBUTE_NODES = [
     # The argument of '@differentiable(...)'.
     # differentiable-attr-arguments ->
     #     differentiation-params-clause? ','?
-    #     differentiable-attr-func-specifier? # jvp
-    #     differentiable-attr-func-specifier? # vjp
     #     generic-where-clause?
     Node('DifferentiableAttributeArguments', kind='Syntax',
          description='''
@@ -227,10 +225,6 @@ ATTRIBUTE_NODES = [
                    The comma following the differentiation parameters clause,
                    if it exists.
                    ''', is_optional=True),
-             Child('MaybeJVP', kind='DifferentiableAttributeFuncSpecifier',
-                   is_optional=True),
-             Child('MaybeVJP', kind='DifferentiableAttributeFuncSpecifier',
-                   is_optional=True),
              Child('WhereClause', kind='GenericWhereClause', is_optional=True),
          ]),
 
@@ -281,23 +275,6 @@ ATTRIBUTE_NODES = [
                        Child('Name', kind='IdentifierToken'),
                        Child('Index', kind='IntegerLiteralToken'),
                    ]),
-             Child('TrailingComma', kind='CommaToken', is_optional=True),
-         ]),
-
-    # differentiable-attr-func-specifier ->
-    #     ('jvp' | 'vjp') ':' func-decl-name ','?
-    Node('DifferentiableAttributeFuncSpecifier', kind='Syntax',
-         description='''
-         A function specifier, consisting of an identifier, colon, and a
-         function declaration name (e.g. `vjp: foo(_:_:)`).
-         ''',
-         traits=['WithTrailingComma'],
-         children=[
-             Child('Label', kind='IdentifierToken',
-                   text_choices=['jvp', 'vjp']),
-             Child('Colon', kind='ColonToken'),
-             Child('FunctionDeclName', kind='FunctionDeclName',
-                   description='The referenced function name.'),
              Child('TrailingComma', kind='CommaToken', is_optional=True),
          ]),
 
