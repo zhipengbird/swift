@@ -4336,7 +4336,6 @@ static bool typeCheckDerivativeAttr(ASTContext &Ctx, Decl *D,
     AccessLevel originalAccess;
     AccessLevel derivativeAccess;
     if (originalAFD->getEffectiveAccess() < derivative->getEffectiveAccess()) {
-      diagID = diag::derivative_attr_access_level_higher_than_original;
       originalAccess =
           originalAFD->getFormalAccessScope().accessLevelForDiagnostics();
       derivativeAccess = derivative->getEffectiveAccess();
